@@ -44,6 +44,11 @@ QUnit.module('Тестируем функцию sort', function () {
 		assert.strictEqual(sort('Any sufficiently advanced technology is indistinguishable from magic'),
 							'Aacddenv Abdeghiiiilnnsstu Acgim Any Ceffiilnstuy Ceghlnooty Fmor Is');
 		assert.strictEqual(sort('Съешь ещё этих мягких французских булок да выпей чаю Жжжжж'),
-							'Ад Азикнрсуфхц Ачю Бклоу Вейпы Гикмхя Еёщ Есшъь Жжжжж Итхэ')
+							'Ад Азикнрсуфхц Ачю Бклоу Вейпы Гикмхя Еёщ Есшъь Жжжжж Итхэ');
+	})
+
+	QUnit.test('Функция обрезает пробелы', (assert) => {
+		assert.strictEqual(sort('     Как      же    я      люблю       пробелы           '), 'Акк Белопры Бллюю Еж Я');
+		assert.strictEqual(sort(' Один  Два   Три     Пять        Восемь'), 'Авд Вемось Дино Ирт Птья');
 	})
 });
