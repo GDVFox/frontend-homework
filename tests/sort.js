@@ -5,7 +5,7 @@ QUnit.module('Тестируем функцию sort', function () {
 		assert.strictEqual(sort('яяя'), 'Яяя', 'Работает с русским алфавитом');
 		assert.strictEqual(sort('Бббббб'), 'Бббббб');
 		assert.strictEqual(sort('zzzzzz'), 'Zzzzzz', 'Работает с английским алфавитом');
-		assert.strictEqual(sort('Rrrrrrrr'), 'rrrrrrrr');
+		assert.strictEqual(sort('Rrrrrrrr'), 'Rrrrrrrr'); // была ошибка в тесте rrrrrrrr => Rrrrrrrr
 	});
 
 	QUnit.test('Функция делает все буквы, кроме первой, строчными', function (assert) {
@@ -34,8 +34,16 @@ QUnit.module('Тестируем функцию sort', function () {
 
 	QUnit.test('Функция работает правильно', function (assert) {
 		assert.strictEqual(sort('мама мыла раму'), 'Аамм Алмы Амру');
-		assert.strictEqual(sort('космический корабль летит на марс'), 'Абклорь Амрс Aн Еиийккмоссч Еилтт');
+		// Была ошибка в тесте: в слове 'Ан' ожидалась 'A'(0041 unicode), но в слове 'на' кириллическая 'a'(0430)
+		assert.strictEqual(sort('космический корабль летит на марс'), 'Абклорь Амрс Ан Еиийккмоссч Еилтт');
 		assert.strictEqual(sort('i love frontend'), 'Defnnort Elov I');
 		assert.strictEqual(sort('hello world'), 'Dlorw Ehllo');
 	});
+
+	QUnit.test('Ещё парочка тестов, чтобы наверняка', (assert) => {
+		assert.strictEqual(sort('Any sufficiently advanced technology is indistinguishable from magic'),
+							'Aacddenv Abdeghiiiilnnsstu Acgim Any Ceffiilnstuy Ceghlnooty Fmor Is');
+		assert.strictEqual(sort('Съешь ещё этих мягких французских булок да выпей чаю Жжжжж'),
+							'Ад Азикнрсуфхц Ачю Бклоу Вейпы Гикмхя Еёщ Есшъь Жжжжж Итхэ')
+	})
 });
